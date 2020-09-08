@@ -11,7 +11,7 @@
     <h1>Artikel Terbaru</h1>
     <?php foreach ($blogs as $key => $blog) : ?>
         <div class="blog">
-            <h2><?= $blog['title']; ?></h2>
+            <h2><a href="<?= site_url('blog/detail/' . $blog['url']); ?>"><?= $blog['title']; ?></a></h2>
             <p><?= $blog['content']; ?></p>
         </div>
     <?php endforeach; ?>
