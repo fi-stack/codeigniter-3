@@ -18,22 +18,23 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <h1>Tambah Artikel</h1>
+            <div class="alert alert-warning"><?= validation_errors(); ?></div>
             <?= form_open_multipart(); ?>
             <div class="form-group">
                 <label>Judul</label>
-                <?= form_input('title', null,  'class="form-control"'); ?>
+                <?= form_input('title', set_value('title'),  'class="form-control"'); ?>
             </div>
             <div class="form-group">
                 <label>URL</label>
-                <?= form_input('url', null,  'class="form-control"'); ?>
+                <?= form_input('url', set_value('url'),  'class="form-control"'); ?>
             </div>
             <div class="form-group">
                 <label>Konten</label>
-                <?= form_textarea('content', null,  'class="form-control"'); ?>
+                <?= form_textarea('content', set_value('content'),  'class="form-control"'); ?>
             </div>
             <div class="form-group">
                 <label>Cover</label>
-                <?= form_upload('cover', null,  'class="form-control"'); ?>
+                <?= form_upload('cover', set_value('cover'),  'class="form-control"'); ?>
             </div>
             <button class="btn btn-primary" type="submit">Simpan Artikel</button>
             <?= form_close(); ?>
