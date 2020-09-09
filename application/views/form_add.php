@@ -18,21 +18,21 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <h1>Tambah Artikel</h1>
-            <form method="POST">
-                <div class="form-group">
-                    <label>Judul</label>
-                    <input class="form-control" type="text" name="title">
-                </div>
-                <div class="form-group">
-                    <label>URL</label>
-                    <input class="form-control" type="text" name="url">
-                </div>
-                <div class="form-group">
-                    <label>Konten</label>
-                    <textarea class="form-control" name="content" id="" cols="30" rows="10"></textarea>
-                </div>
-                <button class="btn btn-primary" type="submit">Simpan Artikel</button>
-            </form>
+            <?= form_open(); ?>
+            <div class="form-group">
+                <label>Judul</label>
+                <?= form_input('title', null,  'class="form-control"'); ?>
+            </div>
+            <div class="form-group">
+                <label>URL</label>
+                <?= form_input('url', null,  'class="form-control"'); ?>
+            </div>
+            <div class="form-group">
+                <label>Konten</label>
+                <?= form_textarea('content', null,  'class="form-control"'); ?>
+            </div>
+            <button class="btn btn-primary" type="submit">Simpan Artikel</button>
+            <?= form_close(); ?>
         </div>
     </div>
 </div>
