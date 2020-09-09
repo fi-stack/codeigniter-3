@@ -18,7 +18,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <h1>Tambah Artikel</h1>
-            <?= form_open(); ?>
+            <?= form_open_multipart(); ?>
             <div class="form-group">
                 <label>Judul</label>
                 <?= form_input('title', null,  'class="form-control"'); ?>
@@ -30,6 +30,10 @@
             <div class="form-group">
                 <label>Konten</label>
                 <?= form_textarea('content', null,  'class="form-control"'); ?>
+            </div>
+            <div class="form-group">
+                <label>Cover</label>
+                <?= form_upload('cover', null,  'class="form-control"'); ?>
             </div>
             <button class="btn btn-primary" type="submit">Simpan Artikel</button>
             <?= form_close(); ?>
