@@ -36,6 +36,7 @@ class Blog extends CI_Controller
 
             if ($id) {
                 echo "Data berhasil disimpan";
+                redirect('/');
             } else {
                 echo "Data gagal disimpan";
             }

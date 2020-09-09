@@ -7,8 +7,8 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h1>Selamat Datang</h1>
-                    <span class="subheading">My Website</span>
+                    <h1>Welcome</h1>
+                    <span class="subheading">Hello World!</span>
                 </div>
             </div>
         </div>

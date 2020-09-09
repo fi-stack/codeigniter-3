@@ -1,29 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php $this->load->view('partials/header'); ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('<?= base_url(); ?>assets/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-heading">
+                    <h1>Tambah Artikel Baru</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-<body>
-    <h1>Tambah Artikel</h1>
-    <form method="POST">
-        <div>
-            <label>Judul</label>
-            <input type="text" name="title">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1>Tambah Artikel</h1>
+            <form method="POST">
+                <div class="form-group">
+                    <label>Judul</label>
+                    <input class="form-control" type="text" name="title">
+                </div>
+                <div class="form-group">
+                    <label>URL</label>
+                    <input class="form-control" type="text" name="url">
+                </div>
+                <div class="form-group">
+                    <label>Konten</label>
+                    <textarea class="form-control" name="content" id="" cols="30" rows="10"></textarea>
+                </div>
+                <button class="btn btn-primary" type="submit">Simpan Artikel</button>
+            </form>
         </div>
-        <div>
-            <label>URL</label>
-            <input type="text" name="url">
-        </div>
-        <div>
-            <label>Konten</label>
-            <textarea name="content" id="" cols="30" rows="10"></textarea>
-        </div>
-        <button type="submit">Simpan Artikel</button>
-    </form>
-</body>
+    </div>
+</div>
 
-</html>
+<?php $this->load->view('partials/footer'); ?>
