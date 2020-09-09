@@ -67,7 +67,11 @@ class Blog extends CI_Controller
         $query = $this->Blog_model->getBlog('id', $id);
         $data['blog'] = $query->row_array();
 
-        if ($this->input->post()) {
+        $this->form_validation->set_rules('title', 'Judul', 'required');
+        $this->form_validation->set_rules('url', 'URL', 'required|alpha_dash');
+        $this->form_validation->set_rules('content', 'Konten', 'required');
+
+        if ($this->form_validation->run() === true) {
             $post['title'] = $this->input->post('title');
             $post['url'] = $this->input->post('url');
             $post['content'] = $this->input->post('content');
