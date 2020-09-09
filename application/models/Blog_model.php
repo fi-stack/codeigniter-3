@@ -4,6 +4,8 @@ class Blog_model extends CI_Model
 {
     public function getBlogs()
     {
+        $filter = $this->input->get('find');
+        $this->db->LIKE('title', $filter);
         return $this->db->get('blog');
     }
 
@@ -21,14 +23,14 @@ class Blog_model extends CI_Model
 
     public function updateBlog($id, $post)
     {
-        $this->db->where('id', $id);
+        $this->db->WHERE('id', $id);
         $this->db->update('blog', $post);
         return $this->db->affected_rows();
     }
 
     public function deleteBlog($id)
     {
-        $this->db->where('id', $id);
+        $this->db->WHERE('id', $id);
         $this->db->delete('blog');
         return $this->db->affected_rows();
     }
