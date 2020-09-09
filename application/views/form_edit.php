@@ -18,21 +18,25 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <h1>Edit Artikel</h1>
-            <form method="POST">
-                <div class="form-group">
-                    <label>Judul</label>
-                    <input class="form-control" type="text" name="title" value="<?= $blog['title']; ?>">
-                </div>
-                <div class="form-group">
-                    <label>URL</label>
-                    <input class="form-control" type="text" name="url" value="<?= $blog['url']; ?>">
-                </div>
-                <div class="form-group">
-                    <label>Konten</label>
-                    <textarea class="form-control" name="content" id="" cols="30" rows="10"><?= $blog['content']; ?></textarea>
-                </div>
-                <button class="btn btn-primary" type="submit">Edit Artikel</button>
-            </form>
+            <?= form_open_multipart(); ?>
+            <div class="form-group">
+                <label>Judul</label>
+                <?= form_input('title', $blog['title'], 'class="form-control"'); ?>
+            </div>
+            <div class="form-group">
+                <label>URL</label>
+                <?= form_input('url', $blog['url'], 'class="form-control"'); ?>
+            </div>
+            <div class="form-group">
+                <label>Konten</label>
+                <?= form_textarea('content', $blog['content'], 'class="form-control"'); ?>
+            </div>
+            <div class="form-group">
+                <label>cover</label>
+                <?= form_upload('cover', $blog['cover'], 'class="form-control"'); ?>
+            </div>
+            <button class="btn btn-primary" type="submit">Edit Artikel</button>
+            <?= form_close(); ?>
         </div>
     </div>
 </div>
