@@ -7,9 +7,9 @@ class Blog_model extends CI_Model
         return $this->db->get('blog');
     }
 
-    public function getBlog($url)
+    public function getBlog($field, $value)
     {
-        $this->db->WHERE('url', $url);
+        $this->db->WHERE($field, $value);
         return $this->db->get('blog');
     }
 
@@ -17,5 +17,12 @@ class Blog_model extends CI_Model
     {
         $this->db->insert('blog', $data);
         return $this->db->insert_id();
+    }
+
+    public function updateBlog($id, $post)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('blog', $post);
+        return $this->db->affected_rows();
     }
 }
