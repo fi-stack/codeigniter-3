@@ -20,6 +20,8 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
 
+            <?= $this->session->flashdata('message'); ?>
+
             <form>
                 <input type="text" name="find">
                 <button type="submit">Cari</button>
@@ -33,7 +35,7 @@
                         </h2>
                     </a>
                     <p class="post-meta">Posted on <?= $blog['date']; ?> <a href="<?= site_url('blog/edit/' . $blog['id']); ?>">Edit</a>
-                        <a href="<?= site_url('blog/delete/' . $blog['id']); ?>">Delete</a></p>
+                        <a href="<?= site_url('blog/delete/' . $blog['id']); ?>" onclick="return confirm('Yakin?')">Delete</a></p>
                     <p><?= $blog['content']; ?></p>
                 </div>
                 <hr>
