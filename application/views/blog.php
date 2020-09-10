@@ -34,9 +34,13 @@
                             <?= $blog['title']; ?>
                         </h2>
                     </a>
-                    <p class="post-meta">Posted on <?= $blog['date']; ?> <a href="<?= site_url('blog/edit/' . $blog['id']); ?>">Edit</a>
-                        <a href="<?= site_url('blog/delete/' . $blog['id']); ?>" onclick="return confirm('Yakin?')">Delete</a></p>
-                    <p><?= $blog['content']; ?></p>
+                    <p class="post-meta">Posted on <?= $blog['date']; ?>
+
+                        <?php if (isset($_SESSION['username'])) : ?>
+                            <a href="<?= site_url('blog/edit/' . $blog['id']); ?>">Edit</a>
+                            <a href="<?= site_url('blog/delete/' . $blog['id']); ?>" onclick="return confirm('Yakin?')">Delete</a></p>
+                <?php endif; ?>
+                <p><?= $blog['content']; ?></p>
                 </div>
                 <hr>
             <?php endforeach; ?>

@@ -35,95 +35,133 @@ class Blog extends CI_Controller
 
     public function add()
     {
-        $this->form_validation->set_rules('title', 'Judul', 'required');
-        $this->form_validation->set_rules('url', 'URL', 'required|alpha_dash');
-        $this->form_validation->set_rules('content', 'Konten', 'required');
+        if (isset($_SESSION['username'])) {
+            $this->form_validation->set_rules('title', 'Judul', 'required');
+            $this->form_validation->set_rules('url', 'URL', 'required|alpha_dash');
+            $this->form_validation->set_rules('content', 'Konten', 'required');
 
-        if ($this->form_validation->run() === true) {
-            $data['title'] = $this->input->post('title');
-            $data['url'] = $this->input->post('url');
-            $data['content'] = $this->input->post('content');
+            if ($this->form_validation->run() === true) {
+                $data['title'] = $this->input->post('title');
+                $data['url'] = $this->input->post('url');
+                $data['content'] = $this->input->post('content');
 
-            $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = 1000;
-            $config['max_width'] = 1024;
-            $config['max_height'] = 768;
+                $config['upload_path'] = './uploads/';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = 1000;
+                $config['max_width'] = 1024;
+                $config['max_height'] = 768;
 
-            $this->load->library('upload', $config);
+                $this->load->library('upload', $config);
 
-            if (!$this->upload->do_upload('cover')) {
-                echo $this->upload->display_errors();
-            } else {
-                $data['cover'] = $this->upload->data('file_name');
+                if (!$this->upload->do_upload('cover')) {
+                    echo $this->upload->display_errors();
+                } else {
+                    $data['cover'] = $this->upload->data('file_name');
+                }
+
+                $id = $this->Blog_model->insertBlog($data);
+
+                if ($id) {
+                    $this->session->set_flashdata("message", '<div class="alert alert-success">Data berhasil disimpan</div>');
+                    redirect('/');
+                } else {
+                    $this->session->set_flashdata("message", '<div class="alert alert-warning">Data gagal disimpan</div>');
+                    redirect('/');
+                }
             }
 
-            $id = $this->Blog_model->insertBlog($data);
-
-            if ($id) {
-                $this->session->set_flashdata("message", '<div class="alert alert-success">Data berhasil disimpan</div>');
-                redirect('/');
-            } else {
-                $this->session->set_flashdata("message", '<div class="alert alert-warning">Data gagal disimpan</div>');
-                redirect('/');
-            }
+            $this->load->view('form_add');
+        } else {
+            redirect('/');
         }
-
-        $this->load->view('form_add');
     }
 
     public function edit($id)
     {
-        $query = $this->Blog_model->getBlog('id', $id);
-        $data['blog'] = $query->row_array();
+        if (isset($_SESSION['username'])) {
+            $query = $this->Blog_model->getBlog('id', $id);
+            $data['blog'] = $query->row_array();
 
-        $this->form_validation->set_rules('title', 'Judul', 'required');
-        $this->form_validation->set_rules('url', 'URL', 'required|alpha_dash');
-        $this->form_validation->set_rules('content', 'Konten', 'required');
+            $this->form_validation->set_rules('title', 'Judul', 'required');
+            $this->form_validation->set_rules('url', 'URL', 'required|alpha_dash');
+            $this->form_validation->set_rules('content', 'Konten', 'required');
 
-        if ($this->form_validation->run() === true) {
-            $post['title'] = $this->input->post('title');
-            $post['url'] = $this->input->post('url');
-            $post['content'] = $this->input->post('content');
+            if ($this->form_validation->run() === true) {
+                $post['title'] = $this->input->post('title');
+                $post['url'] = $this->input->post('url');
+                $post['content'] = $this->input->post('content');
 
-            $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = 1000;
-            $config['max_width'] = 1024;
-            $config['max_height'] = 768;
+                $config['upload_path'] = './uploads/';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = 1000;
+                $config['max_width'] = 1024;
+                $config['max_height'] = 768;
 
-            $this->load->library('upload', $config);
-            $this->upload->do_upload('cover');
+                $this->load->library('upload', $config);
+                $this->upload->do_upload('cover');
 
-            if (!empty($this->upload->data('file_name'))) {
-                $post['cover'] = $this->upload->data('file_name');
+                if (!empty($this->upload->data('file_name'))) {
+                    $post['cover'] = $this->upload->data('file_name');
+                }
+
+                $id = $this->Blog_model->updateBlog($id, $post);
+
+                if ($id) {
+                    $this->session->set_flashdata("message", '<div class="alert alert-success">Data berhasil disimpan</div>');
+                    redirect('/');
+                } else {
+                    $this->session->set_flashdata("message", '<div class="alert alert-warning">Data gagal disimpan</div>');
+                    redirect('/');
+                }
             }
 
-            $id = $this->Blog_model->updateBlog($id, $post);
-
-            if ($id) {
-                $this->session->set_flashdata("message", '<div class="alert alert-success">Data berhasil disimpan</div>');
-                redirect('/');
-            } else {
-                $this->session->set_flashdata("message", '<div class="alert alert-warning">Data gagal disimpan</div>');
-                redirect('/');
-            }
+            $this->load->view('form_edit', $data);
+        } else {
+            redirect('/');
         }
-
-        $this->load->view('form_edit', $data);
     }
 
     public function delete($id)
     {
-        $result = $this->Blog_model->deleteBlog($id);
+        if (isset($_SESSION['username'])) {
+            $result = $this->Blog_model->deleteBlog($id);
 
-        if ($result) {
-            $this->session->set_flashdata("message", '<div class="alert alert-success">Data berhasil dihapus</div>');
+            if ($result) {
+                $this->session->set_flashdata("message", '<div class="alert alert-success">Data berhasil dihapus</div>');
+                redirect('/');
+            } else {
+                $this->session->set_flashdata("message", '<div class="alert alert-warning">Data gagal dihapus</div>');
+                redirect('/');
+            }
             redirect('/');
         } else {
-            $this->session->set_flashdata("message", '<div class="alert alert-warning">Data gagal dihapus</div>');
             redirect('/');
         }
+    }
+
+    public function login()
+    {
+        if ($this->input->post()) {
+
+            $username = $this->input->post('username');
+            $password = $this->input->post('password');
+
+            if ($username == "admin" && $password == "081097") {
+                $_SESSION['username'] = 'admin';
+                redirect('/');
+            } else {
+                $this->session->set_flashdata("message", '<div class="alert alert-warning">Username/Password tidak valid</div>');
+                redirect('blog/login');
+            }
+        }
+
+        $this->load->view('login');
+    }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+
         redirect('/');
     }
 }
